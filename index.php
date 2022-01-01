@@ -1,8 +1,17 @@
 <?php
-
     //tietokantayhteys
     require_once('db.php'); //db-tiedosto käyttöön
-    $html = "<h2>movies</h2>";
-    $html .= createdropdown();
-    echo $html;
+    $conn = createDbConnection(); //kutsutaan funktiota
+    $sql = "SELECT 'name_'";  
+    $prepare = $conn->prepare($sql);
+    $prepare->execute();
+    $rows = $prepare->fetchAll();
+    $html = '<h1>Horror movies</h1>';
+    $html .= '<ul>';
+    foreach($rows as $row) {
+        $html .= '<li>' . $row['name_'] .
+        '</li>';
+    }
+    $html .= '</ul>';
+    print $html;
 
